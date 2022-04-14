@@ -1,8 +1,11 @@
-import {Server} from "./app/server";
-import express from 'express';
-const app = express();
+import Server from './app/server';
 
-const port = 5000;
+const port = parseInt(process.env.PORT || '5000');
 
-const server = new Server(app);
-server.start(port);
+const starter = new Server().start(port)
+  .then(port => console.log(`Running on port ${port}`))
+  .catch(error => {
+    console.log(error)
+  });
+
+export default starter;
